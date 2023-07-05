@@ -1,0 +1,35 @@
+﻿@model List<NLayer.Core.DTOs.ResponseDTOs.SurveyDisplay>
+
+@{
+	ViewBag.Title = "title";
+	Layout = "_StatisticsLayout";
+}
+
+
+<h1>Hoşgeldiniz, @ViewBag.Username</h1><br/>
+
+
+<table class="table">
+	<thead>
+	<tr>
+		<th scope="col">Id</th>
+		<th scope="col">Anket İsmi</th>
+		<th scope="col">Katılımcı Sayısı</th>
+		<th scope="col">İstatistik</th>
+	</tr>
+	</thead>
+	<tbody>
+	@foreach (var survey in Model)
+	{
+		<tr>
+			<td>@survey.Id</td>
+			<td>@survey.SurveyName</td>
+			<td>@survey.TotalParticipation</td>
+			<td><a asp-action="SurveyStatistics" asp-controller="Statistics" asp-route-userId="@ViewBag.UserId"
+			       asp-route-surveyId="@survey.Id" type="button" class="btn btn-info">Görüntüle</a></td>
+		</tr>
+	}
+	
+
+	</tbody>
+</table>

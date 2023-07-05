@@ -1,0 +1,75 @@
+﻿@model NLayer.Core.DTOs.ResponseDTOs.SurveyDisplay
+
+@{
+    ViewData["Title"] = "SurveyStatistics";
+	Layout = "_StatisticsLayout";
+}
+
+
+<h1>@Model.SurveyName</h1>
+<br/>
+
+@{
+	int checkboxCount = 1;
+	int radioCount = 1;
+	int ratingCount = 1;
+}
+
+@if (Model.CheckBoxSurveyQuestions.Count != 0)
+{
+	<h5>CheckBox Soru İstatistikleri (Şık : Toplam Seçilme Sayısı)</h5>
+}
+
+@foreach (var checkbox in Model.CheckBoxSurveyQuestions)
+{
+	<p style="display: inline">@(checkboxCount++).</p>
+	<p style="display: inline">@checkbox.Question</p>
+	
+		
+	@foreach (var item in checkbox.SurveyQuestionItems)
+	{
+		<p>@item.Item     :     @item.TotalSelected</p>
+	}
+	<br/>
+		
+	
+}
+
+
+@if (Model.RadioButtonSurveyQuestions.Count != 0)
+{
+	<h5>RadioButton Soru İstatistikleri (Şık : Toplam Seçilme Sayısı)</h5>
+}
+
+@foreach (var radio in Model.RadioButtonSurveyQuestions)
+{
+	<p style="display: inline">@(radioCount++).</p>
+	<p style="display: inline">@radio.Question</p>
+	
+		
+	@foreach (var item in radio.SurveyQuestionItems)
+	{
+		<p>@item.Item     :     @item.TotalSelected</p>
+	}
+	<br/>
+		
+	
+}
+
+
+@if (Model.RatingSurveyQuestions.Count != 0)
+{
+	<h5>Rating Soru İstatistikleri (Soru : Ortalama [1-5] ) </h5>
+}
+
+@foreach (var rating in Model.RatingSurveyQuestions)
+{
+	<p style="display: inline">@(ratingCount++).</p>
+	<p style="display: inline">@rating.Question     :     @(Model.TotalParticipation == 0 ? 0 : rating.TotalRating / Model.TotalParticipation)</p>
+	<br />
+
+}
+
+
+
+

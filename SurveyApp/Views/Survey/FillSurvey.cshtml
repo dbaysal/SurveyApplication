@@ -1,0 +1,137 @@
+﻿@using Microsoft.AspNetCore.Http.Features
+@using NLayer.Core.DTOs.RequestDTOs
+@using NLayer.Core.Models
+@using Microsoft.AspNetCore.Components.Forms
+@using System.Diagnostics.Eventing.Reader
+@model NLayer.Core.DTOs.ResponseDTOs.SurveyDisplay
+
+@{
+	ViewBag.Title = "title";
+	Layout = "_FillSurveyLayout";
+}
+
+
+
+
+@{
+	int x = 1;
+	int checkboxCount = 0;
+	int radioCount = 0;
+	int ratingCount = 0;
+	int textBoxCount = 0;
+	int textAreaCount = 0;
+}
+
+@if (Model == null)
+{
+	<h1>Beklenmeyen Hata!</h1>
+}
+
+
+else{
+	<h1>@Model.SurveyName</h1>
+	<br/>
+	
+
+	@foreach (var checkbox in Model.CheckBoxSurveyQuestions)
+	{
+		<p style="display: inline">@(x++).</p>
+		<p style="display: inline">@checkbox.Question</p>
+	
+		
+		@foreach (var item in checkbox.SurveyQuestionItems)
+		{
+			<div class="form-check">
+				<input  class="form-check-input" type="checkbox" name="checkbox @checkboxCount" value="@item.Id">
+				<label class="form-check-label" for="checkbox @checkbox.Id">
+					@item.Item
+				</label>
+			</div>
+		}
+		checkboxCount++;
+		<br/>
+		
+	
+	}
+
+
+
+	@foreach (var radio in Model.RadioButtonSurveyQuestions)
+	{
+		<p style="display: inline">@(x++).</p>
+		<p style="display: inline">@radio.Question</p>
+	
+		
+		@foreach (var item in radio.SurveyQuestionItems)
+		{
+			<div class="form-check">
+					<input class="form-check-input" type="radio" name="radio @radioCount" id="radio @radio.Id" value="@item.Id">
+				<label  class="form-check-label" for="inlineRadio1 @radio.Id">
+					@item.Item
+				</label>
+			</div>
+		}
+		<br/>
+
+		radioCount++;
+	}
+
+
+	@foreach (var rating in Model.RatingSurveyQuestions)
+	{
+		<p style="display: inline">@(x++).</p>
+		<p style="display: inline">@rating.Question</p><br/>
+
+		@for (int i = 0; i < 5; ++i)
+		{
+			<div class="form-check form-check-inline">
+					<input class="form-check-input" type="radio" name="rating @ratingCount" id="rating @rating.Id" value="@(i+1),@rating.Id">
+				<label  class="form-check-label" for="rating @rating.Id">@(i + 1)</label>
+			</div>
+		}
+		ratingCount++;
+		<p>Az &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &nbsp; Çok</p>
+		<br />
+
+	}
+
+
+
+
+	@foreach (var textBox in Model.TextBoxSurveyQuestions)
+	{
+		<p style="display: inline">@(x++).</p>
+		<p style="display: inline">@textBox.Question</p><br/>
+
+
+		<input type="email" class="form-control" id="textBox @textBoxCount" placeholder="Cevap Girin">
+		<span style="display: none" id="box span @textBoxCount">@textBox.Id</span>
+																	   <br/>
+		
+
+		textBoxCount++;
+	}
+
+
+	@foreach (var textArea in Model.TextAreaSurveyQuestions)
+	{
+		<p style="display: inline">@(x++).</p>
+		<p style="display: inline">@textArea.Question</p>
+		<br />
+
+		<textarea class="form-control" id="textArea @textAreaCount" rows="3"></textarea>
+		<span style="display: none" id="area span @textAreaCount">@textArea.Id</span>
+																		 <br/>
+
+
+		
+
+		textAreaCount++;
+	}
+
+
+
+	<button onclick="SendSurvey(@Model.Id)" type="button" class="btn btn-dark">Gönder</button>
+
+}
+
