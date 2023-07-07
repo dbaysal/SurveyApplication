@@ -1,17 +1,8 @@
-using System.Collections.Immutable;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using NLayer.API.Modules;
-using NLayer.Repository;
 using NLayer.Service.Mapping;
-using System.Reflection;
-using System.Text;
-using Microsoft.OpenApi.Models;
 using NLayer.API.UtilityClasses;
 
 var builder = WebApplication.CreateBuilder(args);

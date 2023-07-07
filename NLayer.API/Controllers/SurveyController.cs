@@ -33,7 +33,7 @@ namespace NLayer.API.Controllers
 
 		//Create new survey
 		[HttpPost]
-		[Authorize(Roles = "2")] 
+		[Authorize(Roles = "1, 2")] 
 		public async Task<IActionResult> Save(CreateNewSurvey createNewSurvey)
 		{
 			var survey = await _surveyService.AddAsync(_mapper.Map<Survey>(createNewSurvey));
